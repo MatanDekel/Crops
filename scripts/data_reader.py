@@ -1,4 +1,4 @@
-from project.utils.data_utils import load_data
+from utils.data_utils import load_data
 import pandas as pd
 
 

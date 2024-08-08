@@ -6,6 +6,10 @@ def load_data(file_path):
     return df
 
 
+def import_data(file_path, df):
+    df.to_excel(file_path, index=False)
+
+
 def preprocess_data(df):
     df = df.drop('Unnamed: 0', axis=1)
     df = df.drop('Unnamed: 0.1', axis=1)

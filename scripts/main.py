@@ -2,21 +2,22 @@
 # data filter based on what i need
 # send for training the same data
 # prediction gets the training results - send an input gets predictions
-from project.scripts.data_filter import season_filter, region_filter, season_specific_weight, season_specific_weightD, \
+from app import app
+from scripts.data_filter import season_filter, region_filter, season_specific_weight, season_specific_weightD, \
     crop_type
-from project.scripts.data_reader import reader
-from project.scripts.predict import app
-from project.scripts.training import train
+from scripts.data_reader import reader
+from scripts.predict import pred
+from scripts.training import train
 import requests
 
+from utils.data_utils import import_data
 
-def make_prediction(month, year, crop, season, region):
+
+def make_prediction(date, crop, region):
     url = 'http://127.0.0.1:5000/predict'
     data = {
-        'month': month,
-        'year': year,
+        'date': date,
         'crop': crop,
-        'season': season,
         'region': region
     }
 
@@ -34,8 +35,7 @@ def make_prediction(month, year, crop, season, region):
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
-    df = reader(r'D:\Final project\pythonProject2\project\data\data.xlsx')
+    df = reader(r'C:\Users\USER\Documents\GitHub\Crops\data\data.xlsx')
     for season in df['season'].unique():
         for region in df['region'].unique():
             for crop in df['desc'].unique():
@@ -44,5 +44,7 @@ if __name__ == "__main__":
                 filtered_df = season_filter(filtered_df, season)
                 filtered_df = region_filter(filtered_df, region)
                 filtered_df = season_specific_weight(filtered_df, season)
+                import_data(fr"C:\Users\USER\Documents\GitHub\Crops\data\filtered_data\filtered_data_{region}_{season}_{crop}.xlsx", filtered_df)
                 train(filtered_df, region, season, crop)
                 filtered_df = season_specific_weightD(filtered_df, season)
+    #app.run(debug=True)

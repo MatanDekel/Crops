@@ -50,7 +50,7 @@ def pred(date_str, crop, region, temp, humi, rainfall):
     print("Evaluation Results:")
     print(evaluation_df)
 
-    evaluation_file_path = fr"C:\Users\USER\Documents\GitHub\Crops\data\evaluation_results_{region}_{season}_{crop}.xlsx"
+    evaluation_file_path = fr"C:\Users\USER\Documents\GitHub\Crops\data\evaluation_results\evaluation_{region}_{season}_{crop}.xlsx"
     evaluation_df.to_excel(evaluation_file_path, index=False)
     print(f"Evaluation results saved to {evaluation_file_path}")
 

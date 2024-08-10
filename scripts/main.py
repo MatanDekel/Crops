@@ -39,7 +39,7 @@ if __name__ == "__main__":
                 filtered_df = season_filter(filtered_df, season)
                 filtered_df = region_filter(filtered_df, region)
                 filtered_df = season_specific_weight(filtered_df, season)
-                if len(filtered_df) > 5:
+                if len(filtered_df) > 50:
                     import_data(
                         fr"../data/filtered_data/filtered_data_{region}_{season}_{crop}.xlsx",
                         filtered_df)

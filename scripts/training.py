@@ -5,11 +5,13 @@ from utils.model_utils import train_models, train_xgboost, evaluate_model, evalu
 import joblib
 import xgboost as xgb
 
+our_crops = ['Cucumbers', 'Peppers', 'Tomatoes', 'Clementines', 'Potatoes']
+
 
 def train(df, region, season, crop):
     # Check if the dataframe is empty or has insufficient data
     print(df)
-    if df.empty or len(df) >= 50:
+    if crop in our_crops:
         # Extract features and target variables
         features = df[['month', 'year', 'temp', 'humi', 'monthly_rainfall_mm', 'region_encoded', 'season_encoded']]
         target = df['amount']
@@ -63,11 +65,9 @@ def train(df, region, season, crop):
             if best_model_instance:
                 if best_model_name == 'xgboost':
                     # Save the XGBoost model using xgb.Booster.save_model()
-                    model_save_path = f"models/model_{region}_{season}_{crop}.model"
+                    model_save_path = f"models/model_{region}_{season}_{crop}.joblib"
                     xgb_model.save_model(model_save_path)
                     print(f"XGBoost model saved to {model_save_path}")
                 else:
                     # Save other models using joblib
                     save_model(best_model_instance, best_model_name, region, season, crop)
-
-

@@ -6,7 +6,7 @@ from flask_cors import CORS
 app = Flask(__name__)
 
 # Enable CORS for all routes and specify allowed origins
-CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
+CORS(app, resources={r"/*": {"origins": "https://final-project-site-byrhj8dv8-roslanvasilews-projects.vercel.app/"}})
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)

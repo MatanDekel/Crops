@@ -24,7 +24,7 @@ def pred(date_str, crop, region):
     season = get_season(month)
 
     # Load the data
-    data_path = fr"C:\Users\USER\Documents\GitHub\Crops\data\filtered_data\filtered_data_{region}_{season}_{crop}.xlsx"
+    data_path = f"data/filtered_data/filtered_data_{region}_{season}_{crop}.xlsx"
     df = load_data(data_path)
     required_columns = ['month', 'year', 'temp', 'humi', 'monthly_rainfall_mm', 'region_encoded', 'season_encoded']
     for col in required_columns:

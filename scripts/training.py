@@ -51,7 +51,7 @@ def train(df, region, season, crop):
 
     # Save the evaluation results to an Excel file
     evaluation_df = pd.DataFrame(evaluation_results)
-    evaluation_file_path = fr"C:\Users\USER\Documents\GitHub\Crops\data\evaluation\evaluation_{region}_{season}_{crop}.xlsx"
+    evaluation_file_path = fr"data/evaluation/evaluation_{region}_{season}_{crop}.xlsx"
     evaluation_df.to_excel(evaluation_file_path, index=False)
     print(f"Evaluation results saved to {evaluation_file_path}")
     print(evaluation_df)

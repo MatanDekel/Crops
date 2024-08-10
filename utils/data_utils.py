@@ -23,3 +23,7 @@ def preprocess_data(df):
     df['year'] = df['date'].dt.year
 
     return df
+
+def delete_small(df):
+    if(len(df)<5):
+        df.drop()

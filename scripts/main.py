@@ -1,12 +1,7 @@
-#data_reader if need select
-# data filter based on what i need
-# send for training the same data
-# prediction gets the training results - send an input gets predictions
-from app import app
+# from app import app
 from scripts.data_filter import season_filter, region_filter, season_specific_weight, season_specific_weightD, \
     crop_type
 from scripts.data_reader import reader
-from scripts.predict import pred
 from scripts.training import train
 import requests
 
@@ -44,7 +39,11 @@ if __name__ == "__main__":
                 filtered_df = season_filter(filtered_df, season)
                 filtered_df = region_filter(filtered_df, region)
                 filtered_df = season_specific_weight(filtered_df, season)
-                import_data(fr"C:\Users\USER\Documents\GitHub\Crops\data\filtered_data\filtered_data_{region}_{season}_{crop}.xlsx", filtered_df)
-                train(filtered_df, region, season, crop)
-                filtered_df = season_specific_weightD(filtered_df, season)
-    #app.run(debug=True)
+                if len(filtered_df) > 5:
+                    import_data(
+                        fr"C:\Users\USER\Documents\GitHub\Crops\data\filtered_data\filtered_data_{region}_{season}_{crop}.xlsx",
+                        filtered_df)
+                    train(filtered_df, region, season, crop)
+                    filtered_df = season_specific_weightD(filtered_df, season)
+
+    #  app.run(debug=True)

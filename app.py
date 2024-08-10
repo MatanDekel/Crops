@@ -10,28 +10,28 @@ logging.basicConfig(level=logging.INFO)
 
 @app.route('/predict', methods=['POST'])
 def predict():
-    try:
-        data = request.get_json()
+    # try:
+    data = request.get_json()
 
-        # Check for required fields in the request
-        if not all(key in data for key in ('date', 'crop', 'region', 'temp', 'humi', 'monthly_rainfall_mm')):
-            return jsonify({"error": "Missing required fields"}), 400
+    # Check for required fields in the request
+    if not all(key in data for key in ('date', 'crop', 'region')):
+        return jsonify({"error": "Missing required fields"}), 400
 
-        date_str = data['date']
-        crop = data['crop']
-        region = data['region']
-        temp = data['temp']
-        humi = data['humi']
-        rainfall = data['monthly_rainfall_mm']
+    date_str = data['date']
+    crop = data['crop']
+    region = data['region']
 
-        predictions, evaluation_results = pred(date_str, crop, region, temp, humi, rainfall)
+    predictions = pred(date_str, crop, region)
 
-        return jsonify({
-            'predictions': predictions,
-            'evaluation_results': evaluation_results
-        })
+    return jsonify({
+        'predictions': predictions,
+    })
 
-    except Exception as e:
-        logging.error(f"Error in prediction: {e}")
-        return jsonify({"error": str(e)}), 500
 
+# except Exception as e:
+#     logging.error(f"Error in prediction: {e}")
+#     return jsonify({"error": str(e)}), 500
+
+
+if __name__ == "__main__":
+    app.run(debug=True)

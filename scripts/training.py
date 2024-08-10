@@ -1,9 +1,9 @@
-#function that get the data from the filter
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from utils.model_utils import train_models, train_xgboost, evaluate_model, evaluate_xgboost, best_model, save_model
 import joblib
+import xgboost as xgb
 
 
 def train(df, region, season, crop):
@@ -62,4 +62,11 @@ def train(df, region, season, crop):
         best_model_name = best_models[0].replace(' ', '_').lower()
         best_model_instance = models.get(best_model_name, xgb_model if best_model_name == 'xgboost' else None)
         if best_model_instance:
-            save_model(best_model_instance, best_model_name, region, season, crop)
+            if best_model_name == 'xgboost':
+                # Save the XGBoost model using xgb.Booster.save_model()
+                model_save_path = f"models/model_{region}_{season}_{crop}.model"
+                xgb_model.save_model(model_save_path)
+                print(f"XGBoost model saved to {model_save_path}")
+            else:
+                # Save other models using joblib
+                save_model(best_model_instance, best_model_name, region, season, crop)

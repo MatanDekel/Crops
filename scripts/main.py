@@ -30,7 +30,7 @@ def make_prediction(date, crop, region):
 
 
 if __name__ == "__main__":
-    df = reader(r'data/data.xlsx')
+    df = reader('../data/data.xlsx')
     for season in df['season'].unique():
         for region in df['region'].unique():
             for crop in df['desc'].unique():
@@ -41,7 +41,7 @@ if __name__ == "__main__":
                 filtered_df = season_specific_weight(filtered_df, season)
                 if len(filtered_df) > 5:
                     import_data(
-                        fr"data/filtered_data/filtered_data_{region}_{season}_{crop}.xlsx",
+                        fr"../data/filtered_data/filtered_data_{region}_{season}_{crop}.xlsx",
                         filtered_df)
                     train(filtered_df, region, season, crop)
                     filtered_df = season_specific_weightD(filtered_df, season)

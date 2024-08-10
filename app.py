@@ -1,8 +1,12 @@
 from flask import request, Flask, jsonify
 import logging
 from scripts.predict import pred
+from flask_cors import CORS
 
 app = Flask(__name__)
+
+# Enable CORS for all routes and specify allowed origins
+CORS(app, resources={r"/*": {"origins": "http://localhost:5173"}})
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
